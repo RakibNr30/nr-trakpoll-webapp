@@ -36,9 +36,10 @@ Route::get('/polls/index', 'frontend\PollController@showpoll')->name('user.polls
 |----------------------------------------------
     backend route are here
 |-----------------------------------------------
-*/ 
-
-/*
+*/
+Route::get('/auth/{social}','backend\Auth\SocialLoginController@socialLogin')->where('social','facebook|google');
+Route::get('/auth/{social}/callback','backend\Auth\SocialLoginController@handleProviderCallback')->where('social','facebook|google');
+/*z
 |----------------------------------------------
     Supper admin route are here
 |-----------------------------------------------
@@ -86,9 +87,17 @@ Route::group(['prefix' => 'admin'], function(){
 
     
     /*----------------------------------------------
+        App Setting route are here
+    |-----------------------------------------------*/
+
+    Route::get('/app-setting/socialite', 'backend\SocialiteController@index')->name('admin.socialite.index');
+    Route::put('/app-setting/socialite/{id}/update', 'backend\SocialiteController@update')->name('admin.socialite.update');
+
+    /*----------------------------------------------
         Login and Logout route are here
-    |-----------------------------------------------*/ 
+    |-----------------------------------------------*/
     Route::get('/login', 'backend\Auth\LoginController@showLoginForm')->name('admin.login');
+    Route::get('survey/login', 'backend\Auth\LoginController@showSurveyLoginForm')->name('admin.survey.login');
     Route::post('/login/submit', 'backend\Auth\LoginController@login')->name('admin.login.submit');
 
     //Logout Route are here
@@ -97,5 +106,4 @@ Route::group(['prefix' => 'admin'], function(){
     //Forget password Route are here
     //Route::get('/password/reset', 'backend\Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
     //Route::post('/password/reset/submit', 'backend\Auth\ForgetPasswordController@reset')->name('admin.password.update');
-
 });

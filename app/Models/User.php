@@ -36,7 +36,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'fname' => 'string',
+        'lname' => 'string',
+        'email' => 'string',
         'email_verified_at' => 'datetime',
+        'dateofbirth' => 'datetime',
     ];
 
     public static function getpermissionGroup()

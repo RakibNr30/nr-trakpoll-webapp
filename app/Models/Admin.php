@@ -19,7 +19,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','is_admin',
+        'name', 'email', 'password','is_admin', 'provider_type', 'provider_id'
     ];
 
     /**
@@ -38,6 +38,8 @@ class Admin extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'provider_type' => 'integer',
+        'provider_id' => 'string',
     ];
 
     public static function getpermissionGroup()

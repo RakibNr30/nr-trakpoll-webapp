@@ -37,7 +37,7 @@ $usr = Auth::guard('admin')->user();
           @if ($usr->can('role.create') || $usr->can('role.view') ||  $usr->can('role.edit') ||  $usr->can('role.delete'))
           <li class="nav-item has-treeview {{ Route::is('admin.roles.create') || Route::is('admin.roles.index') || Route::is('admin.roles.edit') || Route::is('admin.roles.show') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-user-shield"></i>
               <p>  Roles & Permissions  <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -93,7 +93,7 @@ $usr = Auth::guard('admin')->user();
           @if ($usr->can('poll.create') || $usr->can('poll.view') ||  $usr->can('poll.edit') ||  $usr->can('poll.delete'))
           <li class="nav-item has-treeview {{ Route::is('admin.polls.create') || Route::is('admin.polls.index') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-poll"></i>
               <p>  Polls  <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -123,6 +123,26 @@ $usr = Auth::guard('admin')->user();
             </ul>
           </li>
           @endif
+
+          @if ($usr->can('app_setting.socialite'))
+            <li class="nav-item has-treeview {{ Route::is('admin.socialite.index') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-wrench"></i>
+                <p>App Settings <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @if ($usr->can('app_setting.socialite'))
+                  <li class="nav-item">
+                    <a href="{{ route('admin.socialite.index') }}" class="nav-link {{ route::is('admin.socialite.index')  ? 'active' : '' }}">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Socialite</p>
+                    </a>
+                  </li>
+                @endif
+              </ul>
+            </li>
+        @endif
       </nav>
       <!-- /.sidebar-menu -->
     </div>

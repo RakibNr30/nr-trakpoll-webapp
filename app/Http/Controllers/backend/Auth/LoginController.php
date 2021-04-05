@@ -41,6 +41,25 @@ class LoginController extends Controller
     }
 
     /**
+     * show login form for admin guard
+     *
+     * @return void
+     */
+    public function showSurveyLoginForm()
+    {
+        $socialite = \App\Models\Socialite::first();
+
+        if (\request()->has('secret_key')) {
+            $secret_key = \request()->get('secret_key');
+            if ($secret_key == $socialite->app_secret_key) {
+                return view('backend.auth.survey-login');
+            }
+        }
+
+        abort(403, 'Sorry !! You are Unauthorized to login as survey admin!');
+    }
+
+    /**
      * login admin
      *
      * @param Request $request
