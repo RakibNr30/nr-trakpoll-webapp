@@ -50,7 +50,7 @@ class RolesController extends Controller
         }
 
         $all_permissions  = Permission::all();
-        $permission_groups = User::getpermissionGroup();
+        $permission_groups = \App\Models\User::getpermissionGroup();
         return view('backend.pages.roles.create', compact('all_permissions', 'permission_groups'));
     }
 
@@ -106,7 +106,7 @@ class RolesController extends Controller
 
         $role = Role::findById($id, 'admin');
         $all_permissions = Permission::all();
-        $permission_groups = User::getpermissionGroup();
+        $permission_groups = \App\Models\User::getpermissionGroup();
         return view('backend.pages.roles.edit', compact('role', 'all_permissions', 'permission_groups'));
     }
 

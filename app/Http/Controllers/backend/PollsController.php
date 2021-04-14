@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
+use App\Services\StatisticsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -16,14 +18,17 @@ use App\Models\Question;
 class PollsController extends Controller
 {
     public $user;
-    
+    protected $statisticsService;
 
-    public function __construct()
+
+    public function __construct(StatisticsService $statisticsService)
     {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::guard('admin')->user();
             return $next($request);
         });
+
+        $this->statisticsService = $statisticsService;
     }
     /**
      * Display a listing of the resource.
@@ -44,13 +49,13 @@ class PollsController extends Controller
     public function poll_approved(Request $request, $id)
     {
         DB::table('polls')
-                ->where('id', $id)
-                ->update(['status'=> 0]);
-                
-                $notification = array(
-                    'message' => 'Poll has been Approved !!',
-                    'alert-type' => 'success'
-                );
+            ->where('id', $id)
+            ->update(['status'=> 0]);
+
+        $notification = array(
+            'message' => 'Poll has been Approved !!',
+            'alert-type' => 'success'
+        );
         return redirect()->route('admin.polls.index')->with($notification);
     }
 
@@ -58,13 +63,13 @@ class PollsController extends Controller
     public function poll_disapproved(Request $request, $id)
     {
         DB::table('polls')
-                ->where('id', $id)
-                ->update(['status'=> 1]);
-                
-                $notification = array(
-                    'message' => 'Poll has been Disapproved !!',
-                    'alert-type' => 'success'
-                );
+            ->where('id', $id)
+            ->update(['status'=> 1]);
+
+        $notification = array(
+            'message' => 'Poll has been Disapproved !!',
+            'alert-type' => 'success'
+        );
         return redirect()->route('admin.polls.index')->with($notification);
     }
 
@@ -75,8 +80,8 @@ class PollsController extends Controller
      */
     public function create()
     {
-         ////Role Base Authentication Permision create
-         if (is_null($this->user) || !$this->user->can('poll.create')) {
+        ////Role Base Authentication Permision create
+        if (is_null($this->user) || !$this->user->can('poll.create')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
         return view('backend.pages.polls.create');
@@ -106,6 +111,25 @@ class PollsController extends Controller
         return redirect('admin/polls/'.$polls->id)->with($notification);
     }
 
+    public function duplicate($id)
+    {
+
+        $poll = Poll::where('id', $id)->first();
+
+        $polls = new Poll();
+        $polls->title = $poll->title;
+        $polls->purpose = $poll->purpose;
+        $polls->admin_id = Auth::guard('admin')->user()->id;
+        $polls->save();
+
+
+        $notification = array(
+            'message' => 'Poll has been Duplicated !!',
+            'alert-type' => 'success'
+        );
+        return redirect('admin/polls/'.$polls->id)->with($notification);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -121,7 +145,7 @@ class PollsController extends Controller
         $poll->load('questions.answers.responses');
         //dd($poll);
         return view('backend.pages.polls.show', compact('poll'));
-        
+
     }
 
     /**
@@ -133,7 +157,7 @@ class PollsController extends Controller
     public function edit(Poll $poll)
     {
         ////Role Base Authentication Permision create
-         if (is_null($this->user) || !$this->user->can('poll.edit')) {
+        if (is_null($this->user) || !$this->user->can('poll.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
         $poll= Poll::where('id', $poll->id)->first();
@@ -171,7 +195,7 @@ class PollsController extends Controller
      */
     public function destroy(Poll $poll, Question $question)
     {
-        
+
         //dd($question->answers());
         dd($poll->questions());
 
@@ -180,5 +204,117 @@ class PollsController extends Controller
         // $poll->delete();
 
         // return redirect($poll->path());
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param $pid
+     * @param $qid
+     * @return \Illuminate\Http\Response
+     */
+    public function statistics($pid, $qid)
+    {
+        if (is_null($this->user) || !$this->user->can('poll.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
+
+        if (\request()->has('category')) {
+            $category = \request()->get('category');
+            return response()->json();
+        }
+
+        $statistics = $this->statisticsService->all($qid);
+        $answers = $statistics->pluck('answer');
+        $votes = $statistics->pluck('vote');
+        $question = Question::find($qid);
+        $poll = Poll::find($pid);
+
+        return view('backend.pages.polls.statistics', compact(
+            'answers','votes', 'question', 'poll'
+        ));
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function statisticsByCategory(Request $request)
+    {
+        if (is_null($this->user) || !$this->user->can('poll.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
+
+        $statistics = $this->statisticsService->byCategorySubcategory($request->qid, $request->category, $request->subcategory);
+        $answers = $statistics->pluck('answer');
+        $votes = $statistics->pluck('vote');
+
+        $response = array(
+            'status' => 'success',
+            'answers' => $answers,
+            'votes' => $votes,
+        );
+
+        return response()->json($response);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function statisticsCategory(Request $request)
+    {
+        if (is_null($this->user) || !$this->user->can('poll.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
+        if ($request->category == 'all') {
+            $subCategories = collect([
+                'all' => 'All',
+            ]);
+        }
+        if ($request->category == 'gender') {
+            $subCategories = collect([
+                'all' => 'All',
+                'male' => 'Male',
+                'female' => 'Female',
+                'others' => 'Others'
+            ]);
+        }
+        if ($request->category == 'age') {
+            $subCategories = collect([
+                0 => 'All',
+                1 => '0-10',
+                2 => '11-18',
+                3 => '19-28',
+                4 => '28+'
+            ]);
+        }
+        if ($request->category == 'country') {
+            $selectedCountryIds = Question::find($request->qid)->country_ids;
+            $subCategories = array([
+                0 => 'All'
+            ]);
+            foreach ($selectedCountryIds as $selectedCountryId) {
+                $subCategories[$selectedCountryId] = Country::find($selectedCountryId)->name;
+            }
+        }
+
+        $statistics = $this->statisticsService->all($request->qid);
+        $answers = $statistics->pluck('answer');
+        $votes = $statistics->pluck('vote');
+
+        $response = array(
+            'status' => 'success',
+            'subCategories' => collect($subCategories),
+            'answers' => $answers,
+            'votes' => $votes,
+        );
+
+        return response()->json($response);
     }
 }

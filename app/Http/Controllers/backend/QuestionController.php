@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Answer;
 use Illuminate\Http\Request;
 use App\Models\Poll;
 use App\Models\Question;
+use App\Models\Country;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,19 +28,23 @@ class QuestionController extends Controller
         // if (is_null($this->user) || !$this->user->can('poll.create')) {
         //     abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         // }
-        return view('backend.pages.polls.question.create', compact('poll'));
+
+        $Getcountrylist = Country::all();
+        return view('backend.pages.polls.question.create', compact('poll','Getcountrylist'));
     }
 
-    public function store(Poll $poll)
+    public function store(Request $request, Poll $poll)
     {
-
-        $data = request()->validate([
-            'question.question' => 'required',
+        $data = $request->validate([
+            'question' => 'required',
             'answers.*.answer' => 'required',
+            'country_ids' => 'required|min:1'
         ]);
-       // dd($data);
 
-        $question = $poll->questions()->create($data['question']);
+        $data['country_ids'] = array_map('intval', $data['country_ids']);
+
+        $question = $poll->questions()->create($data);
+
         $question->answers()->createMany($data['answers']);
 
         $notification = array(
@@ -57,19 +61,29 @@ class QuestionController extends Controller
         //     abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         // }
 
-        $question= Question::where('poll_id', $poll->id)->first();
+        //$question= Question::find($question->id);
         $question->load('answers');
+        $Getcountrylist = Country::all();
         //dd($question);
-        return view('backend.pages.polls.question.edit', compact('poll','question'));
+        return view('backend.pages.polls.question.edit', compact('poll','question', 'Getcountrylist'));
     }
 
 
-    public function Update(Request $request,Poll $poll)
+    public function Update(Request $request, Poll $poll)
     {
         //dd($request->all());
         $answerid = $request->answer_id;
+        $questionid = $request->question_id;
         $question = $request->question;
         $answers = $request->answer;
+
+        $dataRequest = $request->all();
+        $data = [
+            'question' => $dataRequest['question'],
+            'country_ids' => $dataRequest['country_ids'] = array_map('intval', $dataRequest['country_ids'])
+        ];
+
+        DB::table('questions')->where('id', $dataRequest['question_id'])->update($data);
 
         for($i=0; $i<count($answers); $i++)
         {
@@ -84,7 +98,7 @@ class QuestionController extends Controller
         return redirect('admin/polls/'.$poll->id)->with($notification);
     }
 
-        /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -96,9 +110,9 @@ class QuestionController extends Controller
         // if (is_null($this->user) || !$this->user->can('poll.delete')) {
         //     abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         // }
-       $question->answers()->delete();
-       $question->delete();
+        $question->answers()->delete();
+        $question->delete();
 
-       return redirect($poll->path());
+        return redirect($poll->path());
     }
 }

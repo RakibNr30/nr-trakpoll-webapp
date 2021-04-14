@@ -20,7 +20,11 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Auth::routes();
+Auth::routes([
+        'login' => false,
+        'register' => false,
+    ]
+);
 
 //Route::get('/', 'frontend\Auth\RegisterController@showRegistrationForm')->name('register');
 //Route::post('/user/store', 'frontend\DashboardController@store')->name('user.register');
@@ -68,13 +72,15 @@ Route::group(['prefix' => 'admin'], function(){
     //Route::get('/deactive_product/{id}','backend\ProductController@deactive_product')->name('admin.product.deactiveproduct');
     //Route::get('/active_product/{id}','backend\ProductController@active_product')->name('admin.product.activeproduct');
 
-
     //question route are here
     Route::get('/polls/{poll}/questions/create', 'backend\QuestionController@create');
     Route::post('/polls/{poll}/question', 'backend\QuestionController@store');
     Route::get('/polls/{poll}/questions/{question}/edit', 'backend\QuestionController@edit');
     Route::post('/polls/{poll}/questions/{question}/update', 'backend\QuestionController@update');
     Route::delete('/polls/{poll}/questions/{question}', 'backend\QuestionController@destroy');
+    Route::get('/poll/{pid}/question/{qid}/statistics', 'backend\PollsController@statistics')->name('admin.poll.statistics');
+    Route::post('/poll/question/statistics', 'backend\PollsController@statisticsByCategory');
+    Route::post('/poll/question/statistics/category', 'backend\PollsController@statisticsCategory');
 
     //survey route are here
     Route::get('/surveys/{poll}-{slug}', 'backend\SurveyController@show');
@@ -97,7 +103,7 @@ Route::group(['prefix' => 'admin'], function(){
         Login and Logout route are here
     |-----------------------------------------------*/
     Route::get('/login', 'backend\Auth\LoginController@showLoginForm')->name('admin.login');
-    Route::get('survey/login', 'backend\Auth\LoginController@showSurveyLoginForm')->name('admin.survey.login');
+    Route::get('/survey/login', 'backend\Auth\LoginController@showSurveyLoginForm')->name('admin.survey.login');
     Route::post('/login/submit', 'backend\Auth\LoginController@login')->name('admin.login.submit');
 
     //Logout Route are here

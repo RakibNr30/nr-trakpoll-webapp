@@ -89,11 +89,26 @@
 </div><!-- /.content-wrapper -->
 
 @endsection
-@section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    })
-</script>
-@endsection
+@section('style')
+    <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
+    <style>
+        .select2-container--default .select2-selection--multiple {
+            padding-bottom: 0;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #007bff;
+            border: 1px solid #000;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: #000;
+        }
+    </style>
+@stop
+@section('script')
+    <script src="{{ asset('backend/plugins/select2/js/select2.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        })
+    </script>
+@stop

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Charts\PollChart;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +10,6 @@ use App\Models\Admin;
 use App\Models\Poll;
 use App\Models\Question;
 use App\Models\User;
-use App\Charts\SampleChart;
 
 class DashboardController extends Controller
 {
@@ -34,8 +34,12 @@ class DashboardController extends Controller
         $total_poll = count(Poll::select('id')->get());
         $total_question = count(Question::select('id')->get());
 
-
-        return view('backend.pages.dashboard.index', compact('total_admin', 'total_user', 'total_poll', 'total_question'));
+        return view('backend.pages.dashboard.index', compact(
+            'total_admin',
+            'total_user',
+            'total_poll',
+            'total_question'
+        ));
     }
 
     public function poll_search(Request $request, Poll $poll)

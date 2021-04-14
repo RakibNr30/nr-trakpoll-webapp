@@ -9,7 +9,7 @@
       <a class="navbar-brand" href="#">TrakkPoll</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="{{ route('register') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="{{ '' }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
     </ul>
   </div>
 </nav>

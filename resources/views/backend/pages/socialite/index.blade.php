@@ -37,7 +37,7 @@
             <div class="card-header">
                 <h3 class="card-title">Edit Socialite</h3>
             </div>
-            @include('backend.partials.message');
+            @include('backend.partials.message')
             <div class="card-body">
                 <form action="{{ route('admin.socialite.update', ['id' => $socialite->id]) }}" method="POST">
                     @method('PUT')
