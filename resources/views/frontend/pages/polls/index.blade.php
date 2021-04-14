@@ -11,7 +11,7 @@ Polls index page | User Dashboard
         text-transform: capitalize;
     }
     .card-body mt-2 a{
-      text-decoration: none; 
+      text-decoration: none;
       background-color: transparent;
     }
 </style>
@@ -45,7 +45,7 @@ Polls index page | User Dashboard
                     <li class="list-group-item">
                         <div class="card mt-3">
                             <div class="card-body mt-2">
-                              <a href="{{ $poll->path() }}" style="" class="text-success">{{ $poll->title }}</a>
+                                <a href="{{ route('user.polls.survey',$poll->id) }}" class="text-success">{{ $poll->title }}</a>
                             </div>
                             <div class="card-footer">
                               <small class="font-weight-bold">Share URL</small>
