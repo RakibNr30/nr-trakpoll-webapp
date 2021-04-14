@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Poll;
 use App\Models\Question;
 use App\Models\Answer;
@@ -29,5 +28,11 @@ class DashboardController extends Controller
         $total_question = count(Question::select('id')->get());
         $total_answer = count(Answer::select('id')->get());
         return view('frontend.pages.dashboard.index', compact('total_user', 'total_poll', 'total_question','total_answer'));
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('frontend.pages.dashboard.profile',compact('user'));
     }
 }

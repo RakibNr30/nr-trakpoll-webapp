@@ -40,9 +40,9 @@ class PollController extends Controller
         return view('frontend.pages.polls.survey.show', compact('poll', 'survey'));
     }
 
-    public function store(Poll $poll)
+    public function store(Request $request, Poll $poll)
     {
-        dd(request()->all());
+
         $data = request()->validate([
             'responses.*.answer_id' => 'required',
             'responses.*.question_id' => 'required',
@@ -50,9 +50,11 @@ class PollController extends Controller
             'survey.email' => 'required|email',
 
         ]);
-
+        $id = $request->responses;
+        //dd($id);
         $survey = $poll->surveys()->create($data['survey']);
-        $survey->responses()->createMany($data['responses']);
+        $res = $survey->responses()->createMany($id);
+
 
         $notification = array(
             'message' => 'Survey Finished SuccessFully !!',

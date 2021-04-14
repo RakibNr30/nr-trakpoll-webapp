@@ -22,7 +22,7 @@ class DashboardController extends Controller
             return $next($request);
         });
     }
-    
+
     public function index()
     {
         if (is_null($this->user) || !$this->user->can('dashboard.view')) {
@@ -58,5 +58,13 @@ class DashboardController extends Controller
 
         return view('backend.pages.polls.search', compact('poll_search', 'search_polls', 'polls'));
 
+    }
+
+    public function profile()
+    {
+        $id = Auth::guard('admin')->user()->id;
+        $admin = Admin::where('id',$id)->first();
+        //dd($admin);
+        return view('backend.pages.dashboard.profile',compact('admin'));
     }
 }

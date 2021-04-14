@@ -30,6 +30,7 @@ Route::post('/logout/user', 'frontend\Auth\LoginController@logout')->name('logou
 
 //Dashboard route are here
 Route::get('/home', 'frontend\DashboardController@index')->name('index');
+Route::get('/profile', 'frontend\DashboardController@profile')->name('user.profile');
 Route::get('/polls/index', 'frontend\PollController@showpoll')->name('user.polls.index');
 
 //Survey route are here
@@ -52,6 +53,7 @@ Route::get('/auth/{social}/callback','backend\Auth\SocialLoginController@handleP
 */
 Route::group(['prefix' => 'admin'], function(){
 	Route::get('/', 'backend\DashboardController@index')->name('admin.dashboard');
+    Route::get('/profile', 'backend\DashboardController@profile')->name('admin.profile');
     Route::get('/search', 'backend\DashboardController@poll_search')->name('poll.search');
 	//Route::get('/', 'backend\ChartDataController@getAllQuestions');
     Route::resource('roles', 'backend\RolesController', ['names'=>'admin.roles']);

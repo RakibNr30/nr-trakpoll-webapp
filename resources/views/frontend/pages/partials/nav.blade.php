@@ -14,8 +14,8 @@
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#"> My account
-          <i class="fas fa-user"></i>
+        <a class="nav-link" href="{{ route('user.profile') }}">
+        <i class="fas fa-user"></i> My account
         </a>
 
       </li>

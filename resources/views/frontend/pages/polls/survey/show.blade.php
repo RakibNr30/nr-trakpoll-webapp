@@ -74,16 +74,16 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" aria-describedby="nameHelp" name="survey[name]" placeholder="Enter Your Name">
-                        <small id="nameHelp" class="form-text text-muted">Hello! What's your name?</small>
-                        @error('name')
+                        <small id="nameHelp" class="form-text text-muted text-danger">Hello! What's your name?</small>
+                        @error('survey.name')
                           <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="survey[email]" aria-describedby="emailHelp" placeholder="Enter your Email">
-                        <small id="emailHelp" class="form-text text-muted">Your Email Please!</small>
-                        @error('email')
+                        <small id="emailHelp" class="form-text text-muted text-danger">Your Email Please!</small>
+                        @error('survey.email')
                           <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
