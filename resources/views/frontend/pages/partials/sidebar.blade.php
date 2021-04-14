@@ -4,7 +4,7 @@ $usr = Auth::guard('web')->user();
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ Route('admin.dashboard') }}" class="brand-link" style="text-align: center">
+    <a href="{{ Route('index') }}" class="brand-link" style="text-align: center">
       <span class="brand-text font-weight-bold">TrakkPoll</span>
     </a>
 
@@ -25,7 +25,7 @@ $usr = Auth::guard('web')->user();
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview {{ Route::is('user.polls.index')? 'menu-open' : '' }}">
             <a href="{{ Route('index') }} " class="nav-link {{ Route::is('index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
@@ -46,7 +46,7 @@ $usr = Auth::guard('web')->user();
               </li>
             </ul>
           </li>
-        
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>

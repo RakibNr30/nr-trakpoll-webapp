@@ -14,12 +14,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
-
 Auth::routes([
         'login' => false,
         'register' => false,
@@ -28,13 +22,21 @@ Auth::routes([
 
 //Route::get('/', 'frontend\Auth\RegisterController@showRegistrationForm')->name('register');
 //Route::post('/user/store', 'frontend\DashboardController@store')->name('user.register');
+
+//User Login Route are here
 Route::get('/', 'frontend\Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login/user', 'frontend\Auth\LoginController@login')->name('login.user');
 Route::post('/logout/user', 'frontend\Auth\LoginController@logout')->name('logout.user');
 
-
+//Dashboard route are here
 Route::get('/home', 'frontend\DashboardController@index')->name('index');
 Route::get('/polls/index', 'frontend\PollController@showpoll')->name('user.polls.index');
+
+//Survey route are here
+Route::get('/surveys/{poll}', 'frontend\PollController@showsurvey')->name('user.polls.survey');
+Route::post('/surveys/{poll}', 'frontend\PollController@store')->name('user.polls.survey.store');
+//comment route are here
+Route::post('/comments/{poll}', 'frontend\PollController@commentstore')->name('user.survey.comment.store');
 
 /*
 |----------------------------------------------
@@ -47,7 +49,7 @@ Route::get('/auth/{social}/callback','backend\Auth\SocialLoginController@handleP
 |----------------------------------------------
     Supper admin route are here
 |-----------------------------------------------
-*/ 
+*/
 Route::group(['prefix' => 'admin'], function(){
 	Route::get('/', 'backend\DashboardController@index')->name('admin.dashboard');
     Route::get('/search', 'backend\DashboardController@poll_search')->name('poll.search');
@@ -58,7 +60,7 @@ Route::group(['prefix' => 'admin'], function(){
 
     /*----------------------------------------------
         Polls route route are here
-    |-----------------------------------------------*/ 
+    |-----------------------------------------------*/
     Route::get('/polls/index', 'backend\PollsController@index')->name('admin.polls.index');
     Route::get('/polls/create', 'backend\PollsController@create')->name('admin.polls.create');
     Route::post('/polls', 'backend\PollsController@store')->name('admin.polls.store');
@@ -68,9 +70,6 @@ Route::group(['prefix' => 'admin'], function(){
     Route::delete('/polls/{poll}/questions/', 'backend\PollsController@destroy');
     Route::get('/poll_approved/{id}', 'backend\PollsController@poll_approved')->name('admin.poll.approved');
     Route::get('/poll_disapproved/{id}', 'backend\PollsController@poll_disapproved')->name('admin.poll.disapproved');
-
-    //Route::get('/deactive_product/{id}','backend\ProductController@deactive_product')->name('admin.product.deactiveproduct');
-    //Route::get('/active_product/{id}','backend\ProductController@active_product')->name('admin.product.activeproduct');
 
     //question route are here
     Route::get('/polls/{poll}/questions/create', 'backend\QuestionController@create');
@@ -91,7 +90,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::delete('/comments/{id}', 'backend\CommentsController@destory')->name('admin.comment.destory');
 
 
-    
+
     /*----------------------------------------------
         App Setting route are here
     |-----------------------------------------------*/

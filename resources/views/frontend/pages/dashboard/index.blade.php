@@ -36,7 +36,7 @@
               <div class="inner">
                 <h3>{{ $total_user }}</h3>
 
-                <p>New Users</p>
+                <p>Total Users</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -49,9 +49,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3></h3>
+                <h3>{{ $total_answer }}</h3>
 
-                <p>Admin Member</p>
+                <p>Total Answer</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
