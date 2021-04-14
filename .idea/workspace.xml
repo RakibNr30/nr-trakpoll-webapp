@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="95a6c4f2-da10-499d-80ed-a47a397f9b10" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/Country.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/UserDetail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Services/StatisticsService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/plugins/new-chartjs/chart.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/plugins/new-chartjs/datalabels.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/backend/pages/polls/statistics.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/backend/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/backend/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/backend/PollsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/backend/PollsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/backend/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/backend/QuestionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/backend/RolesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/backend/RolesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Question.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/layouts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/admins/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/admins/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/admins/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/admins/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/dashboard/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/polls/question/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/polls/question/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/polls/question/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/polls/question/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/polls/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/polls/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/polls/showdata.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/polls/showdata.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/roles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/roles/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/roles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/roles/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/pages/socialite/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/pages/socialite/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="95a6c4f2-da10-499d-80ed-a47a397f9b10" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +256,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -295,11 +267,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mariadb" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Services" />
@@ -363,16 +337,17 @@
       <workItem from="1618328123287" duration="17807000" />
       <workItem from="1618354729785" duration="3807000" />
       <workItem from="1618387514538" duration="5314000" />
+      <workItem from="1618418237009" duration="613000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126831000" />
+    <option name="totallyTimeSpent" value="127444000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="33" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23324397" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23659517" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
