@@ -8,15 +8,15 @@
 <section class="content">
     <div class="container-fluid">
       <div class="row">
-          <div class="col-md-3"></div>
-        <div class="col-md-9">
+          <div class="col-md-2"></div>
+        <div class="col-md-10">
 
           <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center mt-3">
                 <img class="profile-user-img img-fluid img rounded-circle"
-                     src="{{URL::To('backend/img/user2-160x160.jpg')}}"
+                     src="{{URL::To('backend/img/user2-160x160.png')}}"
                      alt="User profile picture">
               </div>
 
@@ -27,6 +27,11 @@
               <ul class="list-group list-group-unbordered mt-3">
                 <li class="list-group-item">
                   <b>Email Address</b> <a class="float-right">{{ $user->email }}</a>
+                </li>
+              </ul>
+              <ul class="list-group list-group-unbordered mt-3">
+                <li class="list-group-item">
+                  <b>Submited Survey Answer</b> <a class="badge badge-success text-light float-right">{{ count($response) }}</a>
                 </li>
               </ul>
 

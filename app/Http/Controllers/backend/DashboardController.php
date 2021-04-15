@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\Poll;
 use App\Models\Question;
+use App\Models\SurveyResponse;
 use App\Models\User;
 
 class DashboardController extends Controller

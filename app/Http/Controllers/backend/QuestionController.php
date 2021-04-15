@@ -22,6 +22,13 @@ class QuestionController extends Controller
         });
     }
 
+    public function index(Poll $poll)
+    {
+        $questions = Question::all();
+        $questions->load('answers');
+        return view('backend.pages.polls.question.index', compact('poll','questions'));
+    }
+
     public function create(Poll $poll)
     {
         ////Role Base Authentication Permision create

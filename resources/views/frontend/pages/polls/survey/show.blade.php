@@ -38,7 +38,13 @@
               <div class="card-body">
                     @foreach ($poll->questions as $key => $question)
                       <div class="card">
-                        <div class="card-header"><strong>{{ $key +1  }}. </strong>{{ $question->question }}</div>
+                        <div class="card-header"><strong>{{ $key +1  }}. </strong>{{ $question->question }}
+                            <span class="text-bold">
+                                Total -
+                                 {{ $question->responses->count() }}
+                                Votes
+                           </span>
+                        </div>
                           <div class="card-body">
 
                             @error('responses.'.$key.'.answer_id')
@@ -52,6 +58,28 @@
                                       <li class="list-group-item">
                                         <input type="radio" name="responses[{{ $key }}][answer_id]" id="answer{{ $answer->id }}" {{ (old('responses.'.$key.'.answer_id') == $answer->id )? 'checked': '' }} class="mr-2" value="{{ $answer->id }}">
                                         {{ $answer->answer }}
+                                        @if($answer->responses->count() > 0)
+                                            @php
+                                                $per = intval(($answer->responses->count() * 100)/$question->responses->count())
+                                            @endphp
+                                            @if( $per>= 70)
+                                                <span class="badge badge-success float-right">
+                                                {{ $per }}%
+                                            </span>
+                                            @elseif ($per>= 40)
+                                                <span class="badge badge-primary float-right">
+                                                {{ $per }}%
+                                            </span>
+                                            @elseif ($per>= 20)
+                                                <span class="badge badge-warning float-right">
+                                                {{ $per }}%
+                                            </span>
+                                            @elseif ($per>= 1)
+                                                <span class="badge badge-danger float-right">
+                                                {{ $per }}%
+                                            </span>
+                                            @endif
+                                        @endif
 
                                         <input type="hidden" name="responses[{{ $key }}][question_id]" value="{{ $question->id }}">
                                         <input type="hidden" name="responses[{{ $key }}][user_id]" value="{{ Auth::guard('web')->user()->id }}">

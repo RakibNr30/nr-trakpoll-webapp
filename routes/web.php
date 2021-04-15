@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/poll_disapproved/{id}', 'backend\PollsController@poll_disapproved')->name('admin.poll.disapproved');
 
     //question route are here
+    Route::get('/polls/questions/index', 'backend\QuestionController@index')->name('admin.polls.question.index');
     Route::get('/polls/{poll}/questions/create', 'backend\QuestionController@create');
     Route::post('/polls/{poll}/question', 'backend\QuestionController@store');
     Route::get('/polls/{poll}/questions/{question}/edit', 'backend\QuestionController@edit');

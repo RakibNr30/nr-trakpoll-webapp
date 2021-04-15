@@ -8,6 +8,7 @@ use App\Models\Poll;
 use App\Models\Question;
 use App\Models\Answer;
 use App\Models\User;
+use App\Models\SurveyResponse;
 
 class DashboardController extends Controller
 {
@@ -33,6 +34,7 @@ class DashboardController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('frontend.pages.dashboard.profile',compact('user'));
+        $response = SurveyResponse::where('user_id', $user->id)->get();
+        return view('frontend.pages.dashboard.profile',compact('user','response'));
     }
 }
