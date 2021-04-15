@@ -37,7 +37,9 @@ Route::get('/surveys/{poll}', 'frontend\PollController@showsurvey')->name('user.
 Route::post('/surveys/{poll}', 'frontend\PollController@store')->name('user.polls.survey.store');
 //comment route are here
 Route::post('/comments/{poll}', 'frontend\PollController@commentstore')->name('user.survey.comment.store');
-
+Route::get('/poll/{pid}/question/{qid}/statistics', 'frontend\PollController@statistics')->name('front.poll.statistics');
+Route::post('/poll/question/statistics', 'frontend\PollController@statisticsByCategory');
+Route::post('/poll/question/statistics/category', 'frontend\PollController@statisticsCategory');
 /*
 |----------------------------------------------
     backend route are here

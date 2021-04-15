@@ -59,6 +59,17 @@
                                     </label>
                                 @endforeach
                             </ul>
+                              <div class="row">
+                                  <div class="col-12" id="accordion">
+                                      <div class="card card-primary">
+                                          <div class="card-header">
+                                              <h4 class="card-title text-center w-100">
+                                                  <a href="{{ route('front.poll.statistics', ['pid' => $poll->id,'qid' => $question->id]) }}">View Statistics</a>
+                                              </h4>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                           </div>
                     </div>
                     @endforeach
