@@ -164,7 +164,11 @@ class PollController extends Controller
             ]);
         }
         if ($request->category == 'country') {
-            $selectedCountryIds = Question::find($request->qid)->country_ids;
+            $question = Question::find($request->qid);
+            $selectedCountryIds = [];
+            if ($question->country_ids != null) {
+                $selectedCountryIds = $question->country_ids;
+            }
             $subCategories = array([
                 0 => 'All'
             ]);
