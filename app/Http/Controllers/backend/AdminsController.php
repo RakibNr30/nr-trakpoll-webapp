@@ -49,7 +49,7 @@ class AdminsController extends Controller
         if (is_null($this->user) || !$this->user->can('admin.create')) {
             abort(403, 'Sorry !! You are Unauthorized to Create any admin !');
         }
-        
+
         $roles  = Role::all();
         return view('backend.pages.admins.create', compact('roles'));
     }
@@ -82,8 +82,11 @@ class AdminsController extends Controller
             $admin->assignRole($request->roles);
         }
 
-        session()->flash('success', 'Admin has been created !!');
-        return redirect()->route('admin.admins.index');
+        $notification = array(
+            'message' => 'Admin has been created !!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.admins.index')->with($notification);
     }
 
     /**
@@ -152,8 +155,11 @@ class AdminsController extends Controller
             $admin->assignRole($request->roles);
         }
 
-        session()->flash('success', 'Admin has been updated !!');
-        return back();
+        $notification = array(
+            'message' => 'Admin has been updated !!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 
     /**
@@ -174,7 +180,10 @@ class AdminsController extends Controller
             $admin->delete();
         }
 
-        session()->flash('success', 'Admin has been deleted !!');
-        return back();
+        $notification = array(
+            'message' => 'Admin has been deleted!!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 }

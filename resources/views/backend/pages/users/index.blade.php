@@ -27,10 +27,7 @@
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">User List</h3>
-          <p class="float-right mb-2">
-            <a class="btn btn-primary text-white" href="{{ route('admin.users.create') }}">Create New User</a>
-        </p>
-        @include('backend.partials.message');
+
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -38,9 +35,8 @@
             <thead>
             <tr>
                 <th width="5%">Sl</th>
-                <th width="25%">Name</th>
-                <th width="20%">Email</th>
-                <th width="15%">Roles</th>
+                <th width="30%">Name</th>
+                <th width="30%">Email</th>
                 <th width="15%">Action</th>
             </tr>
             </thead>
@@ -48,15 +44,8 @@
                 @foreach ($users as $user)
                 <tr>
                     <td>{{ $loop->index+1 }}</td>
-                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->fname }} {{ $user->lname }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
-                        @foreach ($user->roles as $role)
-                            <span class="badge badge-info mr-1">
-                                {{ $role->name }}
-                            </span>
-                        @endforeach
-                    </td>
                     <td style="text-align:center;">
                       <a class="btn btn-success text-white" href="{{ route('admin.users.edit', $user->id) }}">
                         <i class="fas fa-edit"></i></a>
@@ -71,8 +60,8 @@
                                   <div class="modal-header flex-column">
                                       <div class="icon-box">
                                           <i class="material-icons">&#xE5CD;</i>
-                                      </div>                      
-                                      <h4 class="modal-title w-100">Are you sure?</h4>    
+                                      </div>
+                                      <h4 class="modal-title w-100">Are you sure?</h4>
                                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                   </div>
                                   <div class="modal-body">
@@ -88,17 +77,16 @@
                                   </div>
                               </div>
                           </div>
-                      </div> 
+                      </div>
                     </td>
                 </tr>
-            @endforeach           
+            @endforeach
             </tbody>
             <tfoot>
             <tr>
                 <th width="5%">Sl</th>
-                <th width="25%">Name</th>
-                <th width="20%">Email</th>
-                <th width="15%">Roles</th>
+                <th width="30%">Name</th>
+                <th width="30%">Email</th>
                 <th width="15%">Action</th>
             </tr>
             </tfoot>

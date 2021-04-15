@@ -55,10 +55,9 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::get('/', 'backend\DashboardController@index')->name('admin.dashboard');
     Route::get('/profile', 'backend\DashboardController@profile')->name('admin.profile');
     Route::get('/search', 'backend\DashboardController@poll_search')->name('poll.search');
-	//Route::get('/', 'backend\ChartDataController@getAllQuestions');
     Route::resource('roles', 'backend\RolesController', ['names'=>'admin.roles']);
     Route::resource('admins', 'backend\AdminsController', ['names'=>'admin.admins']);
-    Route::resource('users', 'backend\UsersController', ['names'=>'admin.users']);
+    Route::resource('users', 'backend\UserController', ['names'=>'admin.users']);
 
     /*----------------------------------------------
         Polls route route are here

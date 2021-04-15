@@ -61,7 +61,7 @@ $usr = Auth::guard('admin')->user();
             </ul>
           </li>
           @endif
-        
+
           @if ($usr->can('admin.create') || $usr->can('admin.view') ||  $usr->can('admin.edit') ||  $usr->can('admin.delete'))
           <li class="nav-item has-treeview {{ Route::is('admin.admins.create') || Route::is('admin.admins.index') || Route::is('admin.admins.edit') || Route::is('admin.admins.show') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
@@ -80,7 +80,7 @@ $usr = Auth::guard('admin')->user();
               @endif
               @if ($usr->can('admin.view'))
               <li class="nav-item">
-                <a href="{{ Route('admin.admins.index') }}" class="nav-link {{ route::is('admin.admins.index')  ? 'active' : '' }}"">
+                <a href="{{ Route('admin.admins.index') }}" class="nav-link {{ route::is('admin.admins.index')  ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Admin</p>
                 </a>
@@ -94,7 +94,7 @@ $usr = Auth::guard('admin')->user();
           <li class="nav-item has-treeview {{ Route::is('admin.polls.create') || Route::is('admin.polls.index') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-poll"></i>
-              <p>  Polls  <i class="right fas fa-angle-left"></i>
+              <p>  Survey  <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -102,7 +102,7 @@ $usr = Auth::guard('admin')->user();
               <li class="nav-item">
                 <a href="{{ route('admin.polls.create') }}" class="nav-link {{ route::is('admin.polls.create')  ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Create Poll</p>
+                  <p>Create Survey</p>
                 </a>
               </li>
               @endif
@@ -110,20 +110,37 @@ $usr = Auth::guard('admin')->user();
               <li class="nav-item">
                 <a href="{{ route('admin.polls.index') }}" class="nav-link {{ route::is('admin.polls.index')  ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>All Poll</p>
+                  <p>All Survey</p>
                 </a>
               </li>
               @endif
-              <li class="nav-item">
-                <a href="{{ route('admin.comment.index') }}" class="nav-link {{ Route::is('admin.comment.index')  ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Comments</p>
-                </a>
-              </li>
             </ul>
           </li>
           @endif
-
+          <li class="nav-item has-treeview {{ Route::is('admin.users.create') || Route::is('admin.users.index') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-users"></i>
+              <p>  User  <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              @if ($usr->can('poll.view'))
+              <li class="nav-item">
+                <a href="{{ route('admin.users.index') }}" class="nav-link {{ route::is('admin.users.index')  ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-users"></i>
+                  <p>All User</p>
+                </a>
+              </li>
+              @endif
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{ Route::is('admin.comment.index') ? 'menu-open' : '' }}">
+            <a href="{{ route('admin.comment.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-poll"></i>
+              <p> Comments  <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          </li>
           @if ($usr->can('app_setting.socialite'))
             <li class="nav-item has-treeview {{ Route::is('admin.socialite.index') ? 'menu-open' : '' }}">
               <a href="#" class="nav-link">

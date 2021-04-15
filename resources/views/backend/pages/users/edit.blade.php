@@ -35,24 +35,28 @@
 
     <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Edit User - {{ $user->name }}</h3>
+          <h3 class="card-title">Edit User - {{ $users->name }}</h3>
         </div>
-        @include('backend.partials.message');
         <div class="card-body">
-            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+            <form action="{{ route('admin.users.update', $users->id) }}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label for="name">User Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                        <label for="fname">First Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" value="{{ $users->fname }}">
                     </div>
                     <div class="form-group col-md-6 col-sm-12">
-                        <label for="email">User Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                        <label for="lname">Last Name</label>
+                        <input type="text" class="form-control" id="lname" name="lname" value="{{ $users->lname }}">
                     </div>
                 </div>
-
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="email">User Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ $users->email }}">
+                    </div>
+                </div>
                 <div class="form-row">
                     <div class="form-group col-md-6 col-sm-12">
                         <label for="password">Password</label>
@@ -64,17 +68,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6 col-sm-12">
-                        <label for="password">Assign Roles</label>
-                        <select name="roles[]" id="roles" class="form-control select2" multiple>
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                
+
                 <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Update User</button>
             </form>
         </div>
@@ -84,11 +78,4 @@
 </div><!-- /.content-wrapper -->
 
 @endsection
-@section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    })
-</script>
-@endsection
+
