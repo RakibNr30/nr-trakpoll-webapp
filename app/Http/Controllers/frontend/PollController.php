@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
+use App\Models\Question;
+use App\Services\StatisticsService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Poll;
 use App\Models\Survey;
@@ -13,9 +15,11 @@ use App\Models\Comment;
 
 class PollController extends Controller
 {
-    public function __construct()
+    protected $statisticsService;
+    public function __construct(StatisticsService $statisticsService)
     {
         $this->middleware('auth');
+        $this->statisticsService = $statisticsService;
     }
 
     public function showpoll()
@@ -80,5 +84,106 @@ class PollController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param $pid
+     * @param $qid
+     * @return \Illuminate\Http\Response
+     */
+    public function statistics($pid, $qid)
+    {
+        if (\request()->has('category')) {
+            $category = \request()->get('category');
+            return response()->json();
+        }
+
+        $statistics = $this->statisticsService->all($qid);
+        $answers = $statistics->pluck('answer');
+        $votes = $statistics->pluck('vote');
+        $question = Question::find($qid);
+        $poll = Poll::find($pid);
+
+        return view('frontend.pages.polls.survey.statistics', compact(
+            'answers','votes', 'question', 'poll'
+        ));
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function statisticsByCategory(Request $request)
+    {
+        $statistics = $this->statisticsService->byCategorySubcategory($request->qid, $request->category, $request->subcategory);
+        $answers = $statistics->pluck('answer');
+        $votes = $statistics->pluck('vote');
+
+        $response = array(
+            'status' => 'success',
+            'answers' => $answers,
+            'votes' => $votes,
+        );
+
+        return response()->json($response);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function statisticsCategory(Request $request)
+    {
+        if ($request->category == 'all') {
+            $subCategories = collect([
+                'all' => 'All',
+            ]);
+        }
+        if ($request->category == 'gender') {
+            $subCategories = collect([
+                'all' => 'All',
+                'male' => 'Male',
+                'female' => 'Female',
+                'others' => 'Others'
+            ]);
+        }
+        if ($request->category == 'age') {
+            $subCategories = collect([
+                0 => 'All',
+                1 => '0-10',
+                2 => '11-18',
+                3 => '19-28',
+                4 => '28+'
+            ]);
+        }
+        if ($request->category == 'country') {
+            $selectedCountryIds = Question::find($request->qid)->country_ids;
+            $subCategories = array([
+                0 => 'All'
+            ]);
+            foreach ($selectedCountryIds as $selectedCountryId) {
+                $subCategories[$selectedCountryId] = Country::find($selectedCountryId)->name;
+            }
+        }
+
+        $statistics = $this->statisticsService->all($request->qid);
+        $answers = $statistics->pluck('answer');
+        $votes = $statistics->pluck('vote');
+
+        $response = array(
+            'status' => 'success',
+            'subCategories' => collect($subCategories),
+            'answers' => $answers,
+            'votes' => $votes,
+        );
+
+        return response()->json($response);
     }
 }

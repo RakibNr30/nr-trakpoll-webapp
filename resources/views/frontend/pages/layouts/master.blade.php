@@ -10,9 +10,11 @@
   </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   
   @include('frontend.pages.partials.style')
 
+    @yield('style')
 </head>
 
 
@@ -34,6 +36,6 @@
 </div><!-- ./wrapper -->
 
 @include('frontend.pages.partials.scripts')
-
+@yield('script')
 </body>
 </html>
