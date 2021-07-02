@@ -21,12 +21,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Poll Create</h1>
+            <h1 class="m-0 text-dark">Create Survey</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Poll</a></li>
+              <li class="breadcrumb-item active"><a href="#">Create Survey</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,16 +35,16 @@
 
     <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Create Poll</h3>
+          <h3 class="card-title">Create Survey</h3>
           <p class="float-right mb-2">
-            <a class="btn btn-primary text-white" href="">All Poll</a>
+            <a class="btn btn-primary text-white" href="{{ url('admin/polls/index') }}">All Survey</a>
         </p>
         </div>
         <div class="card-body">
             <form action="{{ route('admin.polls.store') }}" method="POST">
                 @csrf
                     <div class="form-group">
-                        <label for="title">Poll Title</label>
+                        <label for="title">Survey Title</label>
                         <input type="text" class="form-control" id="title" aria-describedby="titleHelp" name="title" placeholder="Enter Your Poll Title">
                         <small id="titleHelp" class="form-text text-muted">Give your Poll a title that attracts attention.</small>
                         @error('title')
@@ -52,14 +52,14 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="purpose">Poll Purpose</label>
+                        <label for="purpose">Survey Purpose</label>
                         <input type="text" class="form-control" id="purpose" name="purpose" aria-describedby="purposeHelp" placeholder="Enter Purpose">
                         <small id="purposeHelp" class="form-text text-muted">Give a purpose will increase response.</small>
                         @error('purpose')
                           <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                
+
                 <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Create Poll</button>
             </form>
         </div>

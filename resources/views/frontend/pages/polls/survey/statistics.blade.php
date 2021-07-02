@@ -19,12 +19,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Poll</h1>
+                        <h1 class="m-0 text-dark">Survey</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('admin', ['polls', $poll->id]) }}">Poll</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('admin', ['polls', $poll->id]) }}">Survey</a></li>
                             <li class="breadcrumb-item active">Statistics</li>
                         </ol>
                     </div>
@@ -37,12 +37,42 @@
                 <h2 class="card-title">{{ $question->question }}</h2>
                 <br>
                 <span class="text-success">
-                    Total Votes #<span id="total-vote">{{ $question->responses->count() }}</span>
+                    Total Votes #<span id="total-vote">{{ $question->responses->count() }}</span><br>
                 </span>
+                <span class="text-info">
+                    <?php
+                        $responses = $question->responses;
+
+                        $info = App\Models\SurveyResponse::where('question_id',$question->id)
+                                            ->where('user_id',Auth::guard('web')->user()->id)
+                                            ->first();
+                        if($info){
+                            $ans = App\Models\Answer::where('id',$info->answer_id)->first()->answer;
+                        ?>
+                        My Vote:
+                        <span id="total-vote" class="text-success">
+                        <?php
+                            echo $ans;
+                        ?>
+                        </span>
+                        <?php
+                        }
+                        else{
+                        ?>
+                        <span id="total-vote" class="text-danger">
+                            <?php
+                                echo "Not Participated Yet";
+                            ?>
+                        </span>
+                        <?php
+                        }
+                        ?>
+
             </div>
             <div class="card-header">
                 <div class="row">
                     <div class="form-group col-md-6 mb-0">
+                        <label>Choose Parameter</label>
                         <select name="category" class="form-control" id="search_category">
                             <option value="all">All</option>
                             <option value="gender">Gender</option>
@@ -51,6 +81,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-6 mb-0">
+                        <label>Selcet Value</label>
                         <select name="subcategory" class="form-control select22" id="search_subcategory">
                             <option value="all">All</option>
                         </select>

@@ -48,7 +48,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        
+
         // Validate Login Data
         $request->validate([
             'email' => 'required|max:50',
@@ -68,8 +68,8 @@ class LoginController extends Controller
         }
         else{
             $notification = array(
-                'message' => 'Login Successfull !!',
-                'alert-type' => 'success'
+                'message' => 'Invalid Email and Password !!',
+                'alert-type' => 'error'
             );
             return redirect()->route('login')->with($notification);
         }

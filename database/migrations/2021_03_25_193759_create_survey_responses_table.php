@@ -19,6 +19,8 @@ class CreateSurveyResponsesTable extends Migration
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('answer_id');
             $table->timestamps();
+
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
     }
 

@@ -1,7 +1,7 @@
 @extends('frontend.pages.layouts.master')
 
 @section('title')
-Polls index page | User Dashboard
+Survey index page | User Dashboard
 @endsection
 @section('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -25,12 +25,12 @@ Polls index page | User Dashboard
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Showing All Created Poll</h1>
+            <h1 class="m-0 text-dark">Showing All Created Survey</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('user.polls.index') }}">All Poll</a></li>
+              <li class="breadcrumb-item active"><a href="{{ route('user.polls.index') }}">All Survey</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

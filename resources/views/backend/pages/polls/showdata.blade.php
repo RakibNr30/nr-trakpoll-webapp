@@ -25,12 +25,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Showing All Created Poll</h1>
+                        <h1 class="m-0 text-dark">Showing All Created Survey</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Poll</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Survey</a></li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -41,7 +41,7 @@
             <div class="card-header">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Showing Poll By Date Wise</h2>
+                        <h2 class="card-title">Showing Survey By Date Wise</h2>
                     </div>
                     <div class="card-body">
                         <div class="col-md-12">
@@ -96,7 +96,7 @@
                                     <a class="btn btn-default btn-xs float-right" href="#duplicate-form{{ $poll->id }}" data-toggle="modal" style="margin-right:20px;">
                                         <span class="badge badge-info"><i class="fas fa-plus"></i></span> Duplicate
                                     </a>
-                                    <!--Duplicate Modal -->
+                                    <!--Duplicate Modalc -->
                                     <div id="duplicate-form{{ $poll->id }}" class="modal fade">
                                         <div class="modal-dialog modal-confirm">
                                             <div class="modal-content">
@@ -112,7 +112,7 @@
                                                 </div>
                                                 <div class="modal-footer justify-content-center">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                    <form action="{{--{{ route('admin.polls.duplicate',$poll->id) }}--}}" method="POST">
+                                                    <form action="{{ route('admin.polls.duplicate',$poll->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit" class="btn btn-danger">Duplicate</button>
                                                     </form>

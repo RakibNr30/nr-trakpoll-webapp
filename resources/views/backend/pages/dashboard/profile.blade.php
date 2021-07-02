@@ -16,7 +16,7 @@
             <div class="card-body box-profile">
               <div class="text-center mt-3">
                 <img class="profile-user-img img-fluid img rounded-circle"
-                     src="{{URL::To('backend/img/user2-160x160.jpg')}}"
+                     src="{{URL::To('backend/img/user2-160x160.png')}}"
                      alt="User profile picture">
               </div>
 

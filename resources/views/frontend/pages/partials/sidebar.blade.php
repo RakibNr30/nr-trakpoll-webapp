@@ -46,6 +46,18 @@ $usr = Auth::guard('web')->user();
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview {{ Route::is('user.survey.index')? 'menu-open' : '' }}">
+            <a href="{{ Route('user.survey.index') }}" class="nav-link {{ Route::is('user.survey.index') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>My Survey</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview {{ Route::is('user.comment.index')? 'menu-open' : '' }}">
+            <a href="{{ Route('user.comment.index') }}" class="nav-link {{ Route::is('user.comment.index') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>My Comment</p>
+            </a>
+          </li>
 
       </nav>
       <!-- /.sidebar-menu -->

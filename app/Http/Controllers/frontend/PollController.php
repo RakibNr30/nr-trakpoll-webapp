@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
 use App\Models\Country;
 use App\Models\Question;
 use App\Services\StatisticsService;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Poll;
 use App\Models\Survey;
 use App\Models\Comment;
-
+use App\Models\SurveyResponse;
 
 class PollController extends Controller
 {
@@ -65,6 +66,28 @@ class PollController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('user.polls.index')->with($notification);
+    }
+
+    public function surveyreports()
+    {
+        $id = Auth::guard('web')->user()->id;
+        $responses = SurveyResponse::where('user_id', $id)->get();
+        //dd($responses);
+            // foreach($responses as $response){
+            //     $qus_id = $response->question_id;
+            //     $questions = Question::where('id', $qus_id)->first();
+            //     $ans_id = $response->answer_id;
+            //     $answers = Answer::where('id', $ans_id)->first();
+            // }
+            //return view('frontend.pages.polls.surveyreports.index', compact('questions', 'answers'));
+        return view('frontend.pages.polls.surveyreports.index', compact('responses'));
+    }
+
+    public function commentindex()
+    {
+        $id = Auth::guard('web')->user()->id;
+        $comments = Comment::where('user_id', $id)->get();
+        return view('frontend.pages.polls.survey.comments.index', compact('comments'));
     }
 
     public function commentstore(Request $request, $poll)

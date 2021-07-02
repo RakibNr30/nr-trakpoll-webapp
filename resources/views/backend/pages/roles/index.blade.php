@@ -33,7 +33,6 @@
             @endif
         </p>
         </div>
-        @include('backend.partials.message');
         <!-- /.card-header -->
         <div class="card-body">
           <table id="example1" class="table table-bordered table-striped" style="text-transform: capitalize;">
@@ -77,8 +76,8 @@
                                   <div class="modal-header flex-column">
                                       <div class="icon-box">
                                           <i class="material-icons">&#xE5CD;</i>
-                                      </div>                      
-                                      <h4 class="modal-title w-100">Are you sure?</h4>    
+                                      </div>
+                                      <h4 class="modal-title w-100">Are you sure?</h4>
                                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                   </div>
                                   <div class="modal-body">
@@ -94,12 +93,12 @@
                                   </div>
                               </div>
                           </div>
-                      </div> 
-                    
+                      </div>
+
                     </td>
                     @endif
                 </tr>
-            @endforeach           
+            @endforeach
             </tbody>
             <tfoot>
             <tr>

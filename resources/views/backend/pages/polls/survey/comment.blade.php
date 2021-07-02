@@ -1,52 +1,29 @@
 <!--Comments-->
 <div class="container bootstrap snippets bootdey">
     <div class="row">
-    <div class="col-md-12">
-        <div class="blog-comment">
-        <h3>Comments</h3>
-                <hr/>
-        <ul class="comments">
-            @foreach ($poll->comments as $comment)
-                <li class="clearfix">
-                    <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
-                    <div class="post-comments">
-                        <p class="meta">{{ $comment->created_at->format('D, d, M, Y') }} <a href="#">{{ Auth::guard('admin')->user()->name }}</a> says : <i class="pull-right">
-                            <a href="#"><small class="text-danger">Delete</small>
-                            </a>
-                            </i>
-                        </p>
-                        <p>
-                            {{ $comment->comment }}
-                        </p>
-                    </div>
-                </li>
-            @endforeach
-        {{-- <li class="clearfix">
-          <img src="https://bootdey.com/img/Content/user_2.jpg" class="avatar" alt="">
-          <div class="post-comments">
-              <p class="meta">Dec 19, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
-              <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Etiam a sapien odio, sit amet
-              </p>
-          </div>
-        
-          <ul class="comments">
-              <li class="clearfix">
-                  <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
-                  <div class="post-comments">
-                      <p class="meta">Dec 20, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
-                      <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                          Etiam a sapien odio, sit amet
-                      </p>
-                  </div>
-              </li>
-          </ul>
-        </li> --}}
-        </ul>
-      </div>
-    </div>
+        <div class="col-md-12">
+            <div class="blog-comment">
+            <h3>Comments</h3>
+                    <hr/>
+            <ul class="comments">
+                @foreach ($poll->comments as $comment)
+                    <li class="clearfix">
+                        <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                        <div class="post-comments">
+                            <p class="meta">{{ $comment->created_at->format('D, d, M, Y') }} <a href="#">{{ Auth::guard('admin')->user()->name }}</a> says : <i class="pull-right">
+                                <a href="#"><small class="text-danger">Delete</small>
+                                </a>
+                                </i>
+                            </p>
+                            <p>
+                                {{ $comment->comment }}
+                            </p>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        </div>
   </div>
 <!--/.Comments-->
 
@@ -72,8 +49,6 @@
             </div>
         </form>
         <!-- Default form reply -->
-
-
 
     </div>
 </div>

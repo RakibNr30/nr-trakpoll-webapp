@@ -46,18 +46,18 @@ class DashboardController extends Controller
     public function poll_search(Request $request, Poll $poll)
     {
         $data = request()->validate([
-            'search' => 'required',
+            'searchfrom' => 'required',
+            'searchto' => 'required',
         ]);
 
-        $poll_search = $request->search;
+        $search_from = $request->searchfrom;
+        $search_to = $request->searchto;
 
-        $search_polls = Poll::orWhere('created_at', 'like', '%'.$poll_search.'%')
-            ->orderBy('id', 'desc')
-            ->get();
-        //dd($search_polls);
-
-
-        return view('backend.pages.polls.search', compact('poll_search', 'search_polls', 'polls'));
+        $search_polls = Poll::where('created_at', '>=', $search_from)
+                            ->where('created_at', '<=', $search_to)
+                            ->orderBy('id', 'desc')
+                            ->get();
+        return view('backend.pages.polls.search', compact('search_from','search_to','search_polls', 'polls'));
 
     }
 

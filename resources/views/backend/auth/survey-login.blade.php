@@ -12,7 +12,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Admin Panel Sign IN</p>
+      <p class="login-box-msg">Admin Panel Sign In</p>
 
 
       @include('backend.partials.message')
@@ -71,10 +71,10 @@
         <div class="social-auth-links text-center mb-3">
             <p>- OR -</p>
             <a href="{{ url("auth/facebook?secret_key={$app_secret_key}") }}" class="btn btn-block btn-primary">
-                <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                <i class="fab fa-facebook mr-2"></i> Sign up using Facebook
             </a>
             <a href="{{ url("auth/google?secret_key={$app_secret_key}") }}" class="btn btn-block btn-danger">
-                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                <i class="fab fa-google-plus mr-2"></i> Sign up using Google+
             </a>
         </div>
 

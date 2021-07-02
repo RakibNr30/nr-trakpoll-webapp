@@ -10,11 +10,11 @@
                 <li class="clearfix">
                     <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
                     <div class="post-comments">
-                        <p class="meta">{{ $comment->created_at->format('D, d, M, Y') }} 
+                        <p class="meta">{{ $comment->created_at->format('D, d, M, Y') }}
                             <a href="#">
                                 {{-- {{ Auth::guard('admin')->user()->name }} --}}
                                 {{ Auth::guard('web')->user()->fname }}
-                            </a> says : 
+                            </a> says :
                             {{-- <i class="pull-right">
                             <a href="#"><small class="text-danger">Delete</small>
                             </a>

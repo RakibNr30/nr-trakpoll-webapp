@@ -26,7 +26,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Poll</a></li>
+              <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Survey</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,7 +37,7 @@
           <div class="card">
               <div class="card-body">
                     @foreach ($poll->questions as $key => $question)
-                      <div class="card">             
+                      <div class="card">
                         <div class="card-header"><strong>{{ $key +1  }}. </strong>{{ $question->question }}</div>
                           <div class="card-body">
 
@@ -65,33 +65,23 @@
           </div>
           <div class="card">
             <div class="card-body">
-              <div class="card">
-                <div class="card-header">
-                  <h2 class="card-title">Your Information</h2>
+                <div class="hidden">
+                  @php
+                    //$user_id = Auth::guard('web')->user()->id;
+                    $admin_id = Auth::guard('admin')->user()->id;
+                    $user = App\Models\Admin::where('id', $admin_id)->first();
+                  @endphp
+
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="name" aria-describedby="nameHelp" name="survey[name]" value="{{$user->name}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="email" name="survey[email]" aria-describedby="emailHelp" value="{{$user->email}}">
+                        </div>
+                </div><!-- /.card -->
+                <div>
+                  <button type="submit" class="btn btn-success">Complete Survey</button>
                 </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp" name="survey[name]" placeholder="Enter Your Name">
-                        <small id="nameHelp" class="form-text text-muted">Hello! What's your name?</small>
-                        @error('name')
-                          <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="survey[email]" aria-describedby="emailHelp" placeholder="Enter your Email">
-                        <small id="emailHelp" class="form-text text-muted">Your Email Please!</small>
-                        @error('email')
-                          <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                
-                    <div>
-                      <button type="submit" class="btn btn-success">Complete Survey</button>
-                    </div>
-                </div>
-            </div><!-- /.card -->
             </div>
           </div>
     </form>

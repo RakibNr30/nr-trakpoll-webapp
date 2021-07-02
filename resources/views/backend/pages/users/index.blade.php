@@ -41,46 +41,100 @@
             </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
-                <tr>
-                    <td>{{ $loop->index+1 }}</td>
-                    <td>{{ $user->fname }} {{ $user->lname }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td style="text-align:center;">
-                      <a class="btn btn-success text-white" href="{{ route('admin.users.edit', $user->id) }}">
-                        <i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger text-white" href="#delete-form{{ $user->id }}" data-toggle="modal">
-                        <i class="fas fa-trash"></i>
-                        </a>
+                @php
+                    $id = Auth::guard('admin')->user()->id;
+                    $survey_admin = App\Models\Admin::where('id', $id)->first();
+                @endphp
+              @if($survey_admin->username == 'surveyadmin')
 
-                        <!--Delete Modal -->
-                        <div id="delete-form{{ $user->id }}" class="modal fade">
-                          <div class="modal-dialog modal-confirm">
-                              <div class="modal-content">
-                                  <div class="modal-header flex-column">
-                                      <div class="icon-box">
-                                          <i class="material-icons">&#xE5CD;</i>
-                                      </div>
-                                      <h4 class="modal-title w-100">Are you sure?</h4>
-                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                  </div>
-                                  <div class="modal-body">
-                                      <p>Do you really want to delete these records? This process cannot be undone.</p>
-                                  </div>
-                                  <div class="modal-footer justify-content-center">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                      <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                    </td>
-                </tr>
-            @endforeach
+                    @php
+                        $survey_users = App\Models\SurveyResponse::orderBy('user_id')->get();
+                    @endphp
+                    @foreach ($survey_users as $user)
+                        @php
+                            $showuser = App\Models\User::where('id',$user->user_id)->first();
+                        @endphp
+                            <tr>
+                                <td>{{ $loop->index+1 }}</td>
+                                <td>{{ $showuser->fname }} {{ $showuser->lname }}</td>
+                                <td>{{ $showuser->email }}</td>
+                                <td style="text-align:center;">
+                                    <a class="btn btn-success text-white" href="{{ route('admin.users.edit', $user->id) }}">
+                                    <i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-danger text-white" href="#delete-form{{ $user->id }}" data-toggle="modal">
+                                    <i class="fas fa-trash"></i>
+                                    </a>
+
+                                    <!--Delete Modal -->
+                                    <div id="delete-form{{ $user->id }}" class="modal fade">
+                                        <div class="modal-dialog modal-confirm">
+                                            <div class="modal-content">
+                                                <div class="modal-header flex-column">
+                                                    <div class="icon-box">
+                                                        <i class="material-icons">&#xE5CD;</i>
+                                                    </div>
+                                                    <h4 class="modal-title w-100">Are you sure?</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                                </div>
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                    @endforeach
+              @else
+                    @foreach ($users as $user)
+                    <tr>
+                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $user->fname }} {{ $user->lname }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td style="text-align:center;">
+                            <a class="btn btn-success text-white" href="{{ route('admin.users.edit', $user->id) }}">
+                            <i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger text-white" href="#delete-form{{ $user->id }}" data-toggle="modal">
+                            <i class="fas fa-trash"></i>
+                            </a>
+
+                            <!--Delete Modal -->
+                            <div id="delete-form{{ $user->id }}" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header flex-column">
+                                            <div class="icon-box">
+                                                <i class="material-icons">&#xE5CD;</i>
+                                            </div>
+                                            <h4 class="modal-title w-100">Are you sure?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+              @endif
             </tbody>
             <tfoot>
             <tr>

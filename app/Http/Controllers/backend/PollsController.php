@@ -13,7 +13,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Poll;
 use App\Models\Question;
-
+use App\Models\SurveyResponse;
 
 class PollsController extends Controller
 {
@@ -41,7 +41,7 @@ class PollsController extends Controller
         if (is_null($this->user) || !$this->user->can('poll.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
-        $polls = Poll::all();
+        $polls = Poll::orderBy('id', 'DESC')->get();
         return view('backend.pages.polls.showdata', compact('polls'));
     }
 
@@ -53,7 +53,7 @@ class PollsController extends Controller
             ->update(['status'=> 0]);
 
         $notification = array(
-            'message' => 'Poll has been Approved !!',
+            'message' => 'Poll has been Dispproved !!',
             'alert-type' => 'success'
         );
         return redirect()->route('admin.polls.index')->with($notification);
@@ -67,7 +67,7 @@ class PollsController extends Controller
             ->update(['status'=> 1]);
 
         $notification = array(
-            'message' => 'Poll has been Disapproved !!',
+            'message' => 'Poll has been Approved !!',
             'alert-type' => 'success'
         );
         return redirect()->route('admin.polls.index')->with($notification);
@@ -110,7 +110,7 @@ class PollsController extends Controller
         );
         return redirect('admin/polls/'.$polls->id)->with($notification);
     }
-
+    //duplicate method are here
     public function duplicate($id)
     {
 
@@ -143,6 +143,16 @@ class PollsController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
         $poll->load('questions.answers.responses');
+
+
+
+        // foreach ($poll_id->id as $s_id){
+        //     $survey_id = SurveyResponse::where('survey_id',$s_id)->get();
+
+        //     foreach ($survey_id as $survey_id){
+        //         $survey_id->user_id;
+        //     }
+        // }
         //dd($poll);
         return view('backend.pages.polls.show', compact('poll'));
 

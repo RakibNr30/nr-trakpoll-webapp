@@ -39,7 +39,6 @@
         <!-- /.card-header -->
         <div class="card-body">
             <!-- form start -->
-            @include('backend.partials.message')
             <form action="{{ route('admin.roles.store') }}" method="POST" role="form">
             @csrf
             <div class="card-body">

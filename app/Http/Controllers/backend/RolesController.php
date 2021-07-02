@@ -51,6 +51,8 @@ class RolesController extends Controller
 
         $all_permissions  = Permission::all();
         $permission_groups = \App\Models\User::getpermissionGroup();
+
+
         return view('backend.pages.roles.create', compact('all_permissions', 'permission_groups'));
     }
 
@@ -68,7 +70,7 @@ class RolesController extends Controller
         ],[
             'name' => 'Please give a Unique Role Name',
         ]);
-        //process data        
+        //process data
         $role = Role::create(['name' => $request->name, 'guard_name' => 'admin']);
         //$role = DB::table('roles')->where('name', $request->name)->first(); // find database value
         $permissions = $request->input('permissions');
@@ -76,8 +78,11 @@ class RolesController extends Controller
         if(!empty($permissions)){
             $role->syncPermissions($permissions); // assign permission for role
         }
-        session()->flash('success', 'Role has been created !!');
-        return back();
+        $notification = array(
+            'message' => 'Roll has been Created !!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 
     /**
@@ -140,8 +145,11 @@ class RolesController extends Controller
             $role->syncPermissions($permissions);
         }
 
-        session()->flash('success', 'Role has been updated !!');
-        return back();
+        $notification = array(
+            'message' => 'Roll has been Updated !!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 
     /**
@@ -161,7 +169,10 @@ class RolesController extends Controller
         if (!is_null($role)) {
             $role->delete();
         }
-        session()->flash('success', 'Role has been deleted !!');
-        return back();
+        $notification = array(
+            'message' => 'Roll has been Deleted !!',
+            'alert-type' => 'error'
+        );
+        return back()->with($notification);
     }
 }

@@ -36,6 +36,11 @@ class SurveyController extends Controller
         $survey = $poll->surveys()->create($data['survey']);
         $survey->responses()->createMany($data['responses']);
 
-        return redirect('admin/polls/index');
+
+        $notification = array(
+            'message' => 'Your survey have been completed  !!',
+            'alert-type' => 'success'
+        );
+        return redirect('admin/polls/index')->with($notification);
     }
 }

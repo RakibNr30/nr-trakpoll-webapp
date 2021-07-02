@@ -25,8 +25,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Poll</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+              <li class="breadcrumb-item active"><a href="{{ route('user.polls.index') }}">All Survey</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -56,7 +56,19 @@
                                 @foreach ($question->answers as $answer)
                                     <label for="answer{{ $answer->id }}">
                                       <li class="list-group-item">
-                                        <input type="radio" name="responses[{{ $key }}][answer_id]" id="answer{{ $answer->id }}" {{ (old('responses.'.$key.'.answer_id') == $answer->id )? 'checked': '' }} class="mr-2" value="{{ $answer->id }}">
+                                        <input type="radio" name="responses[{{ $key }}][answer_id]" id="answer{{ $answer->id }}" class="mr-2" value="{{ $answer->id }}"
+                                        <?php
+                                        $info = App\Models\SurveyResponse::where('question_id',$question->id)
+                                            ->where('user_id',Auth::guard('web')->user()->id)
+                                            ->first();
+
+                                            if($info){
+                                                  if ($info->answer_id == $answer->id) {
+                                                      echo "checked";
+                                                  }
+                                            }
+                                        ?>
+                                        >
                                         {{ $answer->answer }}
                                         @if($answer->responses->count() > 0)
                                             @php
@@ -105,39 +117,26 @@
           </div>
           <div class="card">
             <div class="card-body">
-              <div class="card">
-                <div class="card-header">
-                  <h2 class="card-title">Your Information</h2>
+              <div class="hidden">
+                 @php
+                    $user_id = Auth::guard('web')->user()->id;
+                    //$admin_id = Auth::guard('admin')->user()->id;
+                    $user = App\Models\User::where('id', $user_id)->first();
+                  @endphp
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="name" aria-describedby="nameHelp" name="survey[name]" value="{{$user->fname}} {{$user->lname}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="email" name="survey[email]" aria-describedby="emailHelp" value="{{$user->email}}">
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp" name="survey[name]" placeholder="Enter Your Name">
-                        <small id="nameHelp" class="form-text text-muted text-danger">Hello! What's your name?</small>
-                        @error('survey.name')
-                          <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="survey[email]" aria-describedby="emailHelp" placeholder="Enter your Email">
-                        <small id="emailHelp" class="form-text text-muted text-danger">Your Email Please!</small>
-                        @error('survey.email')
-                          <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div>
-                      <button type="submit" class="btn btn-success">Complete Survey</button>
-                    </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Complete Survey</button>
                 </div>
             </div><!-- /.card -->
             </div>
           </div>
     </form>
-
-    @include('frontend.pages.polls.survey.comment')
-
   </div>
 </div><!-- /.content-wrapper -->
 

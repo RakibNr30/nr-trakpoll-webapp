@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Poll;
 use App\Models\Question;
 use App\Models\Country;
+use App\Models\Survey;
+use App\Models\SurveyResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +28,7 @@ class QuestionController extends Controller
     {
         $questions = Question::all();
         $questions->load('answers');
+
         return view('backend.pages.polls.question.index', compact('poll','questions'));
     }
 

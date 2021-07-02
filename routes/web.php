@@ -35,8 +35,11 @@ Route::get('/polls/index', 'frontend\PollController@showpoll')->name('user.polls
 
 //Survey route are here
 Route::get('/surveys/{poll}', 'frontend\PollController@showsurvey')->name('user.polls.survey');
+Route::get('/survey/index', 'frontend\PollController@surveyreports')->name('user.survey.index');
 Route::post('/surveys/{poll}', 'frontend\PollController@store')->name('user.polls.survey.store');
+
 //comment route are here
+Route::get('/comments/index', 'frontend\PollController@commentindex')->name('user.comment.index');
 Route::post('/comments/{poll}', 'frontend\PollController@commentstore')->name('user.survey.comment.store');
 Route::get('/poll/{pid}/question/{qid}/statistics', 'frontend\PollController@statistics')->name('front.poll.statistics');
 Route::post('/poll/question/statistics', 'frontend\PollController@statisticsByCategory');
@@ -73,6 +76,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::delete('/polls/{poll}/questions/', 'backend\PollsController@destroy');
     Route::get('/poll_approved/{id}', 'backend\PollsController@poll_approved')->name('admin.poll.approved');
     Route::get('/poll_disapproved/{id}', 'backend\PollsController@poll_disapproved')->name('admin.poll.disapproved');
+    Route::post('/poll_duplicate/{id}', 'backend\PollsController@duplicate')->name('admin.polls.duplicate');
 
     //question route are here
     Route::get('/polls/questions/index', 'backend\QuestionController@index')->name('admin.polls.question.index');

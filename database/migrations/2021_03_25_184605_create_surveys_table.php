@@ -19,6 +19,8 @@ class CreateSurveysTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->timestamps();
+
+            $table->foreign('poll_id')->references('id')->on('polls')->onDelete('cascade');
         });
     }
 

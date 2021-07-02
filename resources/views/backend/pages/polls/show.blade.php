@@ -21,12 +21,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Poll</h1>
+                        <h1 class="m-0 text-dark">Survey</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Poll</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ url('admin/polls/index') }}">All Survey</a></li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -37,7 +37,20 @@
             <div class="card-header">
                 <h2 class="card-title">{{ $poll->title }}</h2>
                 <p class="float-right mb-2">
-                    <a class="btn btn-primary text-white" href="{{ url('admin/polls/'.$poll->id.'/questions/create') }}">Add New Question</a>
+                    <?php
+                        $poll_id = App\Models\Question::where('poll_id',$poll->id)->get();
+                        if(count($poll_id) > 0){
+                    ?>
+                            <strong>Question Already Created!</strong>
+                    <?php
+                        }
+                        else{
+                    ?>
+                            <a class="btn btn-primary text-white" href="{{ url('admin/polls/'.$poll->id.'/questions/create') }}">Add New Question</a>
+                    <?php
+                        }
+                    ?>
+
                     <a class="btn btn-dark text-white" href="{{ url('admin/surveys/'.$poll->id.'-'.Str::slug($poll->title)) }}">Take Survey</a>
                 </p>
                 {{-- @include('backend.partials.message'); --}}
@@ -124,6 +137,46 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title text-left w-100">
+                                User Responses
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            @php
+                                $user = App\Models\SurveyResponse::where('question_id',$question->id)->get();
+                            @endphp
+
+                                @foreach ($user as $user)
+                                    <?php
+                                        $showuser = App\Models\User::where('id',$user->user_id)->first();
+                                    ?>
+                                    @if(!empty($showuser))
+                                    <div class="card">
+                                        <div class="card-body">
+                                                <table>
+                                                    <tr>
+                                                        <td><strong>Name:</strong></td>
+                                                        <td>&nbsp;</td>
+                                                        <td>{{ $showuser->fname }} {{ $showuser->lname }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Whatsapp Number: </strong> </td>
+                                                        <td>&nbsp;</td>
+                                                        <td>{{ $showuser->whatsapp_number }}</td>
+                                                    </tr>
+                                                </table>
+                                        </div>
+                                    </div>
+
+                                    @endif
+                                @endforeach
+
+
                         </div>
                     </div>
             </div>

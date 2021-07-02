@@ -18,6 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->unsignedBigInteger('poll_id');
             $table->string('question');
             $table->timestamps();
+
         });
     }
 

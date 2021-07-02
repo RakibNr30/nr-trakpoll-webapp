@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Admins Create | Admin Dashboard
+    Create Admin | Admin Dashboard
 @endsection
 @section('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -26,7 +26,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('admin.admins.index') }}">All Admin</a></li>
+              <li class="breadcrumb-item active"><a href="{{ route('admin.admins.create') }}">Create New Admin</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,7 +37,7 @@
         <div class="card-header">
           <h3 class="card-title">Create Admin</h3>
           <p class="float-right mb-2">
-            <a class="btn btn-primary text-white" href="{{ route('admin.admins.create') }}">Create New Admin</a>
+            <a class="btn btn-primary text-white" href="{{ route('admin.admins.index') }}">All Admin</a>
         </p>
         </div>
         @include('backend.partials.message');
@@ -79,7 +79,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Admin</button>
             </form>
         </div>

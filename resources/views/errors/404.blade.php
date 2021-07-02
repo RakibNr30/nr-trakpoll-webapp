@@ -1,6 +1,6 @@
 @extends('errors.errors_layout')
 @section('title')
-    403 -Page Not Found
+    404 -Page Not Found
 @endsection
 @section('errors_content')
     <!-- error area start -->
@@ -16,5 +16,5 @@
         </div>
     </div>
     <!-- error area end -->
-        
+
 @endsection
